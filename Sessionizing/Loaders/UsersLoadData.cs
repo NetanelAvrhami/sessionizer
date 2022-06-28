@@ -1,24 +1,24 @@
-using sessionizer.Loaders;
 using sessionizer.Models;
 using sessionizer.Responses;
 
-namespace sessionizer;
+namespace sessionizer.Loaders;
 
-public class UsersLoader : ILoader<UsersAnalyzer>
+public class UsersLoadData : ILoadData<UsersAnalyzer>
 {
-    public UsersAnalyzer LoadData(List<TableRecord> records)
+    public UsersAnalyzer LoadToDataStructure(List<TableRecord> records)
     {
-        var uniqueSitesPerUser = new Dictionary<string, HashSet<string>>();
+        var uniqueSitesPerUser = new Dictionary<string, HashSet<string?>>();
         foreach (var tableRecord in records)
         {
-            if (!uniqueSitesPerUser.ContainsKey(tableRecord.UserId))
+            if (tableRecord.UserId != null && !uniqueSitesPerUser.ContainsKey(tableRecord.UserId))
             {
-                uniqueSitesPerUser.Add(tableRecord.UserId, new HashSet<string>());
+                uniqueSitesPerUser.Add(tableRecord.UserId, new HashSet<string?>());
             }
-            uniqueSitesPerUser[tableRecord.UserId].Add(tableRecord.SiteUrl);
+
+            if (tableRecord.UserId != null) uniqueSitesPerUser[tableRecord.UserId].Add(tableRecord.SiteUrl);
         }
 
-        return new UsersAnalyzer(uniqueSitesPerUser);
+        return new UsersAnalyzer(uniqueSitesPerUser!);
     }
 
 

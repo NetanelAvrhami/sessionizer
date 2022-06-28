@@ -2,6 +2,14 @@ namespace sessionizer.Models;
 
 public class TableRecord : IComparable<TableRecord>
 {
+    private TableRecord(string userId, string siteUrl, string pageViewUrl, double timestamp)
+    {
+        UserId = userId;
+        SiteUrl = siteUrl;
+        PageViewUrl = pageViewUrl;
+        Timestamp = timestamp;
+    }
+
     public string UserId { get; set; }
     public string SiteUrl { get; set; }
     public string PageViewUrl { get; set; }
@@ -9,24 +17,20 @@ public class TableRecord : IComparable<TableRecord>
 
     public static DateTime ConvertFromTimestampToDate(double timestamp)
     {
-        DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+        var origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
         return origin.AddSeconds(timestamp);
     }
 
     public static TableRecord ConvertToTableRecord(string record)
     {
-        var tableRecord = new TableRecord();
-        string?[] split = record.Split(',');
-        tableRecord.UserId = split[0];
-        tableRecord.SiteUrl = split[1];
-        tableRecord.PageViewUrl = split[2];
-        tableRecord.Timestamp = Convert.ToDouble(split[3]);
-        return tableRecord;
+        var split = record.Split(',');
+        return new TableRecord(split[0],split[1],split[2],Convert.ToDouble(split[3]));
     }
 
     
-    public int CompareTo(TableRecord other)
+    public int CompareTo(TableRecord? other)
     {
-         return this.Timestamp.CompareTo(other.Timestamp);
+        if (other != null) return this.Timestamp.CompareTo(other.Timestamp);
+        return 1;
     }
 }

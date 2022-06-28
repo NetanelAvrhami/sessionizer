@@ -3,9 +3,9 @@ using sessionizer.Models;
 
 namespace sessionizer.Loaders;
 
-public interface ILoader <out T> 
+public interface ILoadData <out T> 
 {
-    T LoadData(List<TableRecord> records);
+    T LoadToDataStructure(List<TableRecord> records);
 }
 
 //file reader - getting from config file all the paths and have method to return the array of the lines by generic class.
