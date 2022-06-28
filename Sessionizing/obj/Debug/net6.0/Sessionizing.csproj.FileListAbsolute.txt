@@ -1,6 +1,10 @@
 /Users/netanel.avrahami/RiderProjects/sessionizer/Sessionizing/bin/Debug/net6.0/appsettings.Development.json
 /Users/netanel.avrahami/RiderProjects/sessionizer/Sessionizing/bin/Debug/net6.0/appsettings.json
 /Users/netanel.avrahami/RiderProjects/sessionizer/Sessionizing/bin/Debug/net6.0/Sessionizing
+/Users/netanel.avrahami/RiderProjects/sessionizer/Sessionizing/bin/Debug/net6.0/Data/example.csv
+/Users/netanel.avrahami/RiderProjects/sessionizer/Sessionizing/bin/Debug/net6.0/Data/input_1.csv
+/Users/netanel.avrahami/RiderProjects/sessionizer/Sessionizing/bin/Debug/net6.0/Data/input_2.csv
+/Users/netanel.avrahami/RiderProjects/sessionizer/Sessionizing/bin/Debug/net6.0/Data/input_3.csv
 /Users/netanel.avrahami/RiderProjects/sessionizer/Sessionizing/bin/Debug/net6.0/Sessionizing.deps.json
 /Users/netanel.avrahami/RiderProjects/sessionizer/Sessionizing/bin/Debug/net6.0/Sessionizing.runtimeconfig.json
 /Users/netanel.avrahami/RiderProjects/sessionizer/Sessionizing/bin/Debug/net6.0/Sessionizing.dll
@@ -25,7 +29,3 @@
 /Users/netanel.avrahami/RiderProjects/sessionizer/Sessionizing/obj/Debug/net6.0/ref/Sessionizing.dll
 /Users/netanel.avrahami/RiderProjects/sessionizer/Sessionizing/obj/Debug/net6.0/Sessionizing.pdb
 /Users/netanel.avrahami/RiderProjects/sessionizer/Sessionizing/obj/Debug/net6.0/Sessionizing.genruntimeconfig.cache
-/Users/netanel.avrahami/RiderProjects/sessionizer/Sessionizing/bin/Debug/net6.0/Data/input_1.csv
-/Users/netanel.avrahami/RiderProjects/sessionizer/Sessionizing/bin/Debug/net6.0/Data/input_2.csv
-/Users/netanel.avrahami/RiderProjects/sessionizer/Sessionizing/bin/Debug/net6.0/Data/input_3.csv
-/Users/netanel.avrahami/RiderProjects/sessionizer/Sessionizing/bin/Debug/net6.0/Data/example.csv

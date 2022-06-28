@@ -2,7 +2,7 @@ namespace sessionizer.Models;
 
 public class SiteAndUrl
 {
-    public Tuple<string, string> siteAndUrl;
+    public (string userId,string siteUrl) siteAndUrl { get; set; }
 
     
 }

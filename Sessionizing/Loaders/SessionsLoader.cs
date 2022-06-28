@@ -6,16 +6,17 @@ namespace sessionizer;
 
 public class SessionsLoader : ILoader<SessionsResponse>
 {
+    private SessionsResponse _loadedData;
     public SessionsResponse LoadData(List<TableRecord> records)
     {
-       var lastTimeStampByUserAndSite = new Dictionary<(string, string), double>();
+        if (_loadedData != null)
+        {
+            return _loadedData;
+        }
+        var lastTimeStampByUserAndSite = new Dictionary<(string, string), double>();
        var urlsSessions = new Dictionary<string, List<double>>();
        foreach (var tableRecord in records)
        {
-           if (!urlsSessions.ContainsKey(tableRecord.SiteUrl))
-           {
-               urlsSessions[tableRecord.SiteUrl] = new List<double>();
-           }
            if (lastTimeStampByUserAndSite.ContainsKey((tableRecord.UserId, tableRecord.SiteUrl)))
            {
                var lastTimeStamp = lastTimeStampByUserAndSite[(tableRecord.UserId, tableRecord.SiteUrl)];
@@ -41,9 +42,10 @@ public class SessionsLoader : ILoader<SessionsResponse>
            }
            lastTimeStampByUserAndSite[(tableRecord.UserId, tableRecord.SiteUrl)] = tableRecord.Timestamp;
        }
-       return new SessionsResponse
-       {
+       _loadedData = new SessionsResponse
+       { 
            UrlsSessionsMap = urlsSessions
        };
+       return _loadedData;
     }
 }
