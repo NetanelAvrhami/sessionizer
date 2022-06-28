@@ -4,10 +4,10 @@ using sessionizer.Responses;
 
 namespace sessionizer;
 
-public class SessionsLoader : ILoader<SessionsResponse>
+public class SessionsLoader : ILoader<SessionsAnalyzer>
 {
-    private SessionsResponse _loadedData;
-    public SessionsResponse LoadData(List<TableRecord> records)
+    private SessionsAnalyzer _loadedData;
+    public SessionsAnalyzer LoadData(List<TableRecord> records)
     {
         if (_loadedData != null)
         {
@@ -42,10 +42,8 @@ public class SessionsLoader : ILoader<SessionsResponse>
            }
            lastTimeStampByUserAndSite[(tableRecord.UserId, tableRecord.SiteUrl)] = tableRecord.Timestamp;
        }
-       _loadedData = new SessionsResponse
-       { 
-           UrlsSessionsMap = urlsSessions
-       };
+
+       _loadedData = new SessionsAnalyzer(urlsSessions);
        return _loadedData;
     }
 }

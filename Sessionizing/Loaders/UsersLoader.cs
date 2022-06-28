@@ -4,9 +4,9 @@ using sessionizer.Responses;
 
 namespace sessionizer;
 
-public class UsersLoader : ILoader<UsersResponse>
+public class UsersLoader : ILoader<UsersAnalyzer>
 {
-    public UsersResponse LoadData(List<TableRecord> records)
+    public UsersAnalyzer LoadData(List<TableRecord> records)
     {
         var uniqueSitesPerUser = new Dictionary<string, HashSet<string>>();
         foreach (var tableRecord in records)
@@ -17,10 +17,8 @@ public class UsersLoader : ILoader<UsersResponse>
             }
             uniqueSitesPerUser[tableRecord.UserId].Add(tableRecord.SiteUrl);
         }
-        return new UsersResponse
-        {
-            UsersUniqueSitesMap = uniqueSitesPerUser
-        };
+
+        return new UsersAnalyzer(uniqueSitesPerUser);
     }
 
 
