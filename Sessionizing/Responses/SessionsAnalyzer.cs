@@ -3,10 +3,10 @@ namespace sessionizer.Responses;
 public class SessionsAnalyzer 
 {
     private Dictionary<string, List<long>> UrlsSessionsMap { get; set; }
-
-    public SessionsAnalyzer(Dictionary<string, List<long>> urlsSessionsMap)
+    
+    public SessionsAnalyzer()
     {
-        UrlsSessionsMap = urlsSessionsMap!;
+        UrlsSessionsMap = new Dictionary<string,List<long>>();
     }
 
     public int GetNumberOfSessions(string siteUrl)
@@ -22,10 +22,19 @@ public class SessionsAnalyzer
                                            (UrlsSessionsMap[siteUrl][(sessionsSize / 2) - 1]))) 
             : (UrlsSessionsMap[siteUrl][(sessionsSize - 1) / 2]);
     }
-    public  bool IsUrlExists(string siteUrl)
+
+    public void AddNewSession(string siteUrl, long sessionDuration)
+    {
+        if (!IsUrlExists(siteUrl))
+            UrlsSessionsMap[siteUrl] = new List<long>();
+        UrlsSessionsMap[siteUrl].Add(sessionDuration);
+    }
+    private bool IsUrlExists(string siteUrl)
     {
         return UrlsSessionsMap.ContainsKey(siteUrl);
     }
+
+
 
 
 }

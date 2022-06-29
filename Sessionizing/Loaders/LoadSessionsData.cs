@@ -1,4 +1,3 @@
-using Microsoft.Extensions.DependencyInjection;
 using sessionizer.Models;
 using sessionizer.Responses;
 
@@ -7,7 +6,12 @@ namespace sessionizer.Loaders;
 public class SessionsLoadData : ILoadData<SessionsAnalyzer>
 {
     private SessionsAnalyzer? _loadedData;
+    private readonly Dictionary<SessionKey, SessionTwo> _lastTimeStampByUserAndSite;
     
+    public SessionsLoadData()
+    {
+        _lastTimeStampByUserAndSite = new Dictionary<SessionKey, SessionTwo>();
+    }
 
     public SessionsAnalyzer LoadToDataStructure(List<TableRecord> records)
     {
@@ -15,45 +19,37 @@ public class SessionsLoadData : ILoadData<SessionsAnalyzer>
         {
             return _loadedData;
         }
-
-        var lastTimeStampByUserAndSite = new Dictionary<SessionKey, SessionTwo>();
-        var urlsSessions = new Dictionary<string, List<long>>();
+        _loadedData = new SessionsAnalyzer();
         foreach (var tableRecord in records)
         {
             var sessionKey = new SessionKey(tableRecord.SiteUrl, tableRecord.UserId);
-            if (lastTimeStampByUserAndSite.ContainsKey(sessionKey))
+            if (_lastTimeStampByUserAndSite.ContainsKey(sessionKey))
             {
-                var currentSession = lastTimeStampByUserAndSite[sessionKey];
-                if (currentSession.endtime + 60000*30 < tableRecord.Timestamp)
+                var currentSession = _lastTimeStampByUserAndSite[sessionKey];
+                if (currentSession.EndTime + 60000 * 30 < tableRecord.Timestamp)
                 {
-                    if (!urlsSessions.ContainsKey(tableRecord.SiteUrl))
-                        urlsSessions[tableRecord.SiteUrl] = new List<long>();
-                    urlsSessions[tableRecord.SiteUrl].Add(currentSession.endtime - currentSession.startTime);
-                    currentSession.startTime = tableRecord.Timestamp;
+                    var sessionDuration = currentSession.EndTime - currentSession.StartTime;
+                    _loadedData.AddNewSession(tableRecord.SiteUrl,sessionDuration);
+                    currentSession.StartTime = tableRecord.Timestamp;
                 }
-                currentSession.endtime = tableRecord.Timestamp;
+                currentSession.EndTime = tableRecord.Timestamp;
             }
             else
             {
-                lastTimeStampByUserAndSite.Add((sessionKey),
+                _lastTimeStampByUserAndSite.Add((sessionKey),
                     new SessionTwo(tableRecord.Timestamp));
             }
         }
 
-        foreach (var (key, value) in lastTimeStampByUserAndSite)
+        foreach (var (key, value) in _lastTimeStampByUserAndSite)
         {
-            if (!urlsSessions.ContainsKey(key.SiteUrl))
-                urlsSessions[key.SiteUrl] = new List<long>();
-            var sessionDuration = value.endtime - value.startTime;
-            if (value.endtime == -1)
+            var sessionDuration = value.EndTime - value.StartTime;
+            if (value.EndTime == -1)
             {
                 sessionDuration = 0;
             }
-
-            urlsSessions[key.SiteUrl].Add(sessionDuration);
+            _loadedData.AddNewSession(key.SiteUrl,sessionDuration);
         }
-
-        _loadedData = new SessionsAnalyzer(urlsSessions);
         return _loadedData;
     }
 }
