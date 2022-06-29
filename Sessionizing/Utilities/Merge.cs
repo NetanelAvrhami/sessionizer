@@ -4,13 +4,13 @@ namespace sessionizer.Utilities;
 
 public class Merge
 {
-    public static List<TableRecord> MergeTwo(List<TableRecord> firstList, List<TableRecord> secondList)
+    public static List<VisitRecord> MergeTwo(List<VisitRecord> firstList, List<VisitRecord> secondList)
     {
         // Get sizes of vectors
         var firstListCount = firstList.Count;
         var secondListCount = secondList.Count;
         // Vector for storing Result
-        var mergedList = new List<TableRecord>
+        var mergedList = new List<VisitRecord>
         {
             Capacity = firstListCount + secondListCount
         };
@@ -18,7 +18,7 @@ public class Merge
         var secondListIndex = 0;
         while (firstListIndex < firstListCount && secondListIndex < secondListCount)
         {
-            // mergedList.Add(firstList[firstListIndex].CompareTo(secondList[secondListIndex]) < 1 ? firstList[firstListIndex++] : secondList[secondListIndex++]);
+            mergedList.Add(firstList[firstListIndex].DateTime.CompareTo(secondList[secondListIndex]) < 1 ? firstList[firstListIndex++] : secondList[secondListIndex++]);
         }
 
         // secondList has exhausted

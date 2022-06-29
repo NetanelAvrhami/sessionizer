@@ -4,5 +4,5 @@ namespace sessionizer.Utilities;
 
 public interface IFileReader
 {
-    public List<TableRecord> ReadFile(string csvFilePath);
+    public List<VisitRecord> ReadFile(string csvFilePath);
 }

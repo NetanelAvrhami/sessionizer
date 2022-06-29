@@ -5,17 +5,17 @@ namespace sessionizer.Loaders;
 
 public class LoadUsersData : ILoadUserData
 {
-    public UsersAnalyzer LoadUsersSites(List<TableRecord> records)
+    public UsersAnalyzer LoadUsersSites(List<VisitRecord> visits)
     {
         var usersUniqueSitesMap = new Dictionary<string, HashSet<string>>();
-        foreach (var tableRecord in records)
+        foreach (var visit in visits)
         {
-            if (!usersUniqueSitesMap.ContainsKey(tableRecord.UserId))
+            if (!usersUniqueSitesMap.ContainsKey(visit.UserId))
             {
-                usersUniqueSitesMap.Add(tableRecord.UserId, new HashSet<string>());
+                usersUniqueSitesMap.Add(visit.UserId, new HashSet<string>());
             }
 
-            usersUniqueSitesMap[tableRecord.UserId].Add(tableRecord.SiteUrl);
+            usersUniqueSitesMap[visit.UserId].Add(visit.SiteUrl);
         }
 
         return new UsersAnalyzer(usersUniqueSitesMap);

@@ -5,5 +5,5 @@ namespace sessionizer.Loaders;
 
 public interface ILoadSessionsData
 {
-    public SessionsAnalyzer LoadSessions(List<TableRecord> records);
+    public SessionsAnalyzer LoadSessions(List<VisitRecord> visits);
 }

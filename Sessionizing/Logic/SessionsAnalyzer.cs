@@ -2,7 +2,7 @@ namespace sessionizer.Logic;
 
 public class SessionsAnalyzer
 {
-    private Dictionary<string, List<double>> UrlsSessionsMap { get; set; }
+    private Dictionary<string, List<double>> UrlsSessionsMap { get; }
 
     public SessionsAnalyzer(Dictionary<string, List<double>> urlsSessionsMap)
     {

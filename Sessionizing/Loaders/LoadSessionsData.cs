@@ -5,32 +5,32 @@ namespace sessionizer.Loaders;
 
 public class LoadSessionsData : ILoadSessionsData
 {
-    public SessionsAnalyzer LoadSessions(List<TableRecord> records)
+    public SessionsAnalyzer LoadSessions(List<VisitRecord> visits)
     {
         var lastTimeStampByUserAndSite = new Dictionary<SessionKey, Session>();
         var urlsSessionsMap = new Dictionary<string, List<double>>();
 
-        foreach (var tableRecord in records)
+        foreach (var visit in visits)
         {
-            var sessionKey = new SessionKey(tableRecord.SiteUrl, tableRecord.UserId);
+            var sessionKey = new SessionKey(visit.SiteUrl, visit.UserId);
             if (lastTimeStampByUserAndSite.ContainsKey(sessionKey))
             {
                 var currentSession = lastTimeStampByUserAndSite[sessionKey];
-                if (currentSession.EndTime.AddMinutes(30) < tableRecord.VisitDateTime)
+                if (currentSession.EndTime.AddMinutes(30) < visit.DateTime)
                 {
                     var sessionDuration = currentSession.EndTime.Subtract(currentSession.StartTime).TotalSeconds;
-                    if (!urlsSessionsMap.ContainsKey(tableRecord.SiteUrl))
-                        urlsSessionsMap[tableRecord.SiteUrl] = new List<double>();
-                    urlsSessionsMap[tableRecord.SiteUrl].Add(sessionDuration);
-                    currentSession.StartTime = tableRecord.VisitDateTime;
+                    if (!urlsSessionsMap.ContainsKey(visit.SiteUrl))
+                        urlsSessionsMap[visit.SiteUrl] = new List<double>();
+                    urlsSessionsMap[visit.SiteUrl].Add(sessionDuration);
+                    currentSession.StartTime = visit.DateTime;
                 }
 
-                currentSession.EndTime = tableRecord.VisitDateTime;
+                currentSession.EndTime = visit.DateTime;
             }
             else
             {
                 lastTimeStampByUserAndSite.Add((sessionKey),
-                    new Session(tableRecord.VisitDateTime));
+                    new Session(visit.DateTime));
             }
         }
 

@@ -24,7 +24,7 @@ public class SessionKey
             return false;
         }
 
-        // If parameter cannot be cast to Point return false.
+        // If parameter cannot be cast to SessionKey return false.
         if (obj is not SessionKey p)
         {
             return false;
