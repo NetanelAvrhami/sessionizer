@@ -1,13 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
-using sessionizer.Loaders;
-using sessionizer.Utilities;
 
 namespace sessionizer.Controllers;
 
 [Route("/api/users")]
 public class UsersController : ControllerBase
 {
-    private Bootstrap _bootstrap;
+    private readonly Bootstrap _bootstrap;
     public UsersController(Bootstrap bootstrap)
     {
         _bootstrap = bootstrap;

@@ -8,7 +8,7 @@ namespace sessionizer.Controllers;
 [Route("/api/sessions")]
 public class SessionsController : ControllerBase
 {
-    private Bootstrap _bootstrap;
+    private readonly Bootstrap _bootstrap;
     public SessionsController(Bootstrap bootstrap)
     {
         _bootstrap = bootstrap;
