@@ -1,25 +1,22 @@
+using sessionizer.Logic;
 using sessionizer.Models;
-using sessionizer.Responses;
 
 namespace sessionizer.Loaders;
 
 public class LoadUsersData : ILoadUserData
 {
-    private UsersAnalyzer? _loadedData;
-
-    public UsersAnalyzer? LoadUsersSites(List<TableRecord> records)
+    public UsersAnalyzer LoadUsersSites(List<TableRecord> records)
     {
-        if (_loadedData != null)
-        {
-            return _loadedData;
-        }
-        _loadedData = new UsersAnalyzer();
+        var usersUniqueSitesMap = new Dictionary<string, HashSet<string>>();
         foreach (var tableRecord in records)
         {
-            _loadedData.AddSiteForUser(tableRecord.UserId,tableRecord.SiteUrl);
+            if (!usersUniqueSitesMap.ContainsKey(tableRecord.UserId))
+            {
+                usersUniqueSitesMap.Add(tableRecord.UserId, new HashSet<string>());
+            }
+
+            usersUniqueSitesMap[tableRecord.UserId].Add(tableRecord.SiteUrl);
         }
-        return _loadedData;
+        return new UsersAnalyzer(usersUniqueSitesMap);
     }
-
-
 }

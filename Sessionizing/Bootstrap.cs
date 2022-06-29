@@ -1,5 +1,5 @@
 using sessionizer.Loaders;
-using sessionizer.Responses;
+using sessionizer.Logic;
 using sessionizer.Utilities;
 
 namespace sessionizer;

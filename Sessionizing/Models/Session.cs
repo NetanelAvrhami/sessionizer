@@ -2,9 +2,9 @@ namespace sessionizer.Models;
 
 public class Session
 {
-    public long StartTime { get; set; }
-    public long EndTime { get; set; }
-    public Session(long startTime)
+    public DateTime StartTime { get; set; }
+    public DateTime EndTime { get; set; }
+    public Session(DateTime startTime)
     {
         StartTime = startTime;
         EndTime = startTime;
