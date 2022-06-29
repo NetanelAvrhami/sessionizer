@@ -13,7 +13,7 @@ public class LoadSessionsData : ILoadSessionsData
         _lastTimeStampByUserAndSite = new Dictionary<SessionKey, Session>();
     }
 
-    public SessionsAnalyzer? LoadUsersSites(List<TableRecord> records)
+    public SessionsAnalyzer? LoadSessions(List<TableRecord> records)
     {
         if (_loadedData != null)
         {

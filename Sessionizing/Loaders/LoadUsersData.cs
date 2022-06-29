@@ -7,7 +7,7 @@ public class LoadUsersData : ILoadUserData
 {
     private UsersAnalyzer? _loadedData;
 
-    public UsersAnalyzer? LoadSessions(List<TableRecord> records)
+    public UsersAnalyzer? LoadUsersSites(List<TableRecord> records)
     {
         if (_loadedData != null)
         {

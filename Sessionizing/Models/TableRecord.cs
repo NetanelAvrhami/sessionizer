@@ -14,13 +14,7 @@ public class TableRecord
     public string SiteUrl { get; set; }
     public string PageViewUrl { get; set; }
     public long Timestamp { get; set; }
-
-    public static DateTime ConvertFromTimestampToDate(double timestamp)
-    {
-        var origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-        return origin.AddSeconds(timestamp);
-    }
-
+    
     public static TableRecord ConvertToTableRecord(string record)
     {
         var split = record.Split(',');

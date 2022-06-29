@@ -11,17 +11,17 @@ public class Bootstrap
     private readonly object _lock = new();
     private SessionsAnalyzer? _sessionsAnalyzer;
     private UsersAnalyzer? _usersAnalyzer;
-    private readonly ILoadSessionsData _loadSessionsData;
-    private readonly ILoadUserData _loadUserData;
+    private readonly ILoadSessionsData _sessionsLoader;
+    private readonly ILoadUserData _usersLoader;
     private readonly IFileReader _fileReader;
 
 
 
-    public Bootstrap(IFileReader fileReader, ILoadSessionsData loadSessionsData, ILoadUserData loadUserData)
+    public Bootstrap(IFileReader fileReader, ILoadSessionsData sessionsLoader, ILoadUserData usersLoader)
     {
         _fileReader = fileReader;
-        _loadSessionsData = loadSessionsData;
-        _loadUserData = loadUserData;
+        _sessionsLoader = sessionsLoader;
+        _usersLoader = usersLoader;
     }
     
     public SessionsAnalyzer? GetSessionAnalyzer(){
@@ -43,8 +43,8 @@ public class Bootstrap
                 return;
             }
             var allRecords = _fileReader.ReadFile("Data/example.csv");
-            _sessionsAnalyzer = _loadSessionsData.LoadUsersSites(allRecords);
-            _usersAnalyzer = _loadUserData.LoadSessions(allRecords);
+            _sessionsAnalyzer = _sessionsLoader.LoadSessions(allRecords);
+            _usersAnalyzer = _usersLoader.LoadUsersSites(allRecords);
             _initialized = true;
         }
 
