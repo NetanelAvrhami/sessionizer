@@ -8,6 +8,7 @@ public class UsersAnalyzer
     {
         _usersUniqueSitesMap = new Dictionary<string, HashSet<string>>();
     }
+
     public int GetVisitorUniqueSites(string userId)
     {
         if(IsUserExists(userId))
