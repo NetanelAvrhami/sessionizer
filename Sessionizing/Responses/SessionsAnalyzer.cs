@@ -2,9 +2,9 @@ namespace sessionizer.Responses;
 
 public class SessionsAnalyzer 
 {
-    private Dictionary<string, List<double>> UrlsSessionsMap { get; set; }
+    private Dictionary<string, List<long>> UrlsSessionsMap { get; set; }
 
-    public SessionsAnalyzer(Dictionary<string, List<double>> urlsSessionsMap)
+    public SessionsAnalyzer(Dictionary<string, List<long>> urlsSessionsMap)
     {
         UrlsSessionsMap = urlsSessionsMap!;
     }

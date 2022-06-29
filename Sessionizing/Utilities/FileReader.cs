@@ -4,7 +4,7 @@ namespace sessionizer.Utilities;
 
 public static class FileReader
 {
-    //read the csv and return it according to the template
+    
     public static List<TableRecord> ConvertCsvToTableRecord(string csvFilePath)
     {
         var tableRecords = new List<TableRecord>();

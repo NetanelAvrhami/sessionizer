@@ -11,16 +11,17 @@ public class SessionsController : ControllerBase
     
     
 
-    [HttpGet("total/{sessionUrl}")]
-    public int GetNumberOfSessions([FromRoute] string sessionUrl)
+    [HttpGet("total/{siteUrl}")]
+    public int GetNumberOfSessions([FromRoute] string siteUrl)
     {
         //https://localhost:7162/api/sessions/total/www.s_7.com
         var file = FileReader.ConvertCsvToTableRecord("Data/example.csv");
-        var sessionLoader = new SessionsLoadData();
-        return 1;
+        var proceccing = new SessionsLoadData();
+        var res = proceccing.LoadToDataStructure(file);
+        return res.GetNumberOfSessions(siteUrl); 
     }
-    [HttpGet("median/{sessionUrl}")]
-    public void GetSessionMedianLength([FromRoute] string sessionUrl)
+    [HttpGet("median/{siteUrl}")]
+    public void GetSessionMedianLength([FromRoute] string siteUrl)
     {
         var file = FileReader.ConvertCsvToTableRecord("Data/example.csv");
         var sessionLoader = new SessionsLoadData();

@@ -1,3 +1,4 @@
+using Microsoft.Extensions.DependencyInjection;
 using sessionizer.Models;
 using sessionizer.Responses;
 
@@ -14,36 +15,41 @@ public class SessionsLoadData : ILoadData<SessionsAnalyzer>
             return _loadedData;
         }
 
-        var lastTimeStampByUserAndSite = new Dictionary<(string, string), double>();
-        var urlsSessions = new Dictionary<string, List<double>>();
+        var lastTimeStampByUserAndSite = new Dictionary<(string, string), SessionTwo>();
+        var urlsSessions = new Dictionary<string, List<long>>();
         foreach (var tableRecord in records)
         {
             if (lastTimeStampByUserAndSite.ContainsKey((tableRecord.UserId, tableRecord.SiteUrl)))
             {
-                var lastTimeStamp = lastTimeStampByUserAndSite[(tableRecord.UserId, tableRecord.SiteUrl)];
-                var lastTimestampAfterParse = TableRecord.ConvertFromTimestampToDate(Convert.ToDouble(lastTimeStamp));
-                var sessionLength = 0.0;
-                var currentTimeStampAfterParse =
-                    TableRecord.ConvertFromTimestampToDate(Convert.ToDouble(tableRecord.Timestamp));
-                if (currentTimeStampAfterParse <= lastTimestampAfterParse.AddMinutes(30)) // 30 min didnt pass
+                var currentSession = lastTimeStampByUserAndSite[(tableRecord.UserId, tableRecord.SiteUrl)];
+                if (currentSession.endtime + 60000*30 < tableRecord.Timestamp)
                 {
-                    sessionLength = Convert.ToDouble(currentTimeStampAfterParse.Subtract(lastTimestampAfterParse)
-                        .TotalSeconds);
-                    urlsSessions[tableRecord.SiteUrl]
-                        .Remove(urlsSessions[tableRecord.SiteUrl].First(length => length == 0));
-                    urlsSessions[tableRecord.SiteUrl].Add(sessionLength);
+                    if (!urlsSessions.ContainsKey(tableRecord.SiteUrl))
+                        urlsSessions[tableRecord.SiteUrl] = new List<long>();
+                    urlsSessions[tableRecord.SiteUrl].Add(currentSession.endtime - currentSession.startTime);
+                    currentSession.startTime = tableRecord.Timestamp;
                 }
-                else
-                {
-                    urlsSessions[tableRecord.SiteUrl].Add(sessionLength);
-                }
+                currentSession.endtime = tableRecord.Timestamp;
+                
             }
             else
             {
-                urlsSessions[tableRecord.SiteUrl].Add(0); // single page
+                lastTimeStampByUserAndSite.Add((tableRecord.UserId, tableRecord.SiteUrl),
+                    new SessionTwo(tableRecord.Timestamp));
+            }
+        }
+
+        foreach (var keyValuePair in lastTimeStampByUserAndSite)
+        {
+            if (!urlsSessions.ContainsKey(keyValuePair.Key.Item2))
+                urlsSessions[keyValuePair.Key.Item2] = new List<long>();
+            var sessionDuration = keyValuePair.Value.endtime - keyValuePair.Value.startTime;
+            if (keyValuePair.Value.endtime == -1)
+            {
+                sessionDuration = 0;
             }
 
-            lastTimeStampByUserAndSite[(tableRecord.UserId, tableRecord.SiteUrl)] = tableRecord.Timestamp;
+            urlsSessions[keyValuePair.Key.Item2].Add(sessionDuration);
         }
 
         _loadedData = new SessionsAnalyzer(urlsSessions);

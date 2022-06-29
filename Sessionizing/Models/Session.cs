@@ -2,13 +2,15 @@ namespace sessionizer.Models;
 
 public class Session
 {
-    public Session(double startTime, double? endTime = null)
+    public Session(Guid sessionId, double timeStamp, double duration)
     {
-        StartTime = startTime;
-        EndTime = endTime;
+        SessionId = sessionId;
+        TimeStamp = timeStamp;
+        Duration = duration;
     }
 
-    public double StartTime { get; set; }
-    public double? EndTime { get; set; }
+    public Guid SessionId { get; set; }
+    private double TimeStamp { get; set; }
+    public double Duration { get; set; }
     
 }
