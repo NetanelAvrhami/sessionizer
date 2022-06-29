@@ -20,7 +20,7 @@ public class UsersController : ControllerBase
         // var userLoader = new UsersLoadData();
         // var data = userLoader.LoadToDataStructure("bla");
         // var count = data.GetVisitorUniqueSites(userId);
-        var res = _bootstrap.GetUserAnalyzer().GetVisitorUniqueSites(userId);
+        var res = _bootstrap.GetUserAnalyzer()?.GetVisitorUniqueSites(userId);
         return Ok(res);
 
     }
