@@ -3,12 +3,12 @@ using sessionizer.Responses;
 
 namespace sessionizer.Loaders;
 
-public class SessionsLoadData : ILoadData<SessionsAnalyzer>
+public class LoadSessionsData : ILoadData<SessionsAnalyzer>
 {
     private SessionsAnalyzer? _loadedData;
     private readonly Dictionary<SessionKey, SessionTwo> _lastTimeStampByUserAndSite;
     
-    public SessionsLoadData()
+    public LoadSessionsData()
     {
         _lastTimeStampByUserAndSite = new Dictionary<SessionKey, SessionTwo>();
     }

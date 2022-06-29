@@ -13,7 +13,6 @@ public class UsersLoadData : ILoadData<UsersAnalyzer>
         {
             return _loadedData;
         }
-
         _loadedData = new UsersAnalyzer();
         foreach (var tableRecord in records)
         {

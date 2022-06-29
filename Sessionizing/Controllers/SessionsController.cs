@@ -16,7 +16,7 @@ public class SessionsController : ControllerBase
     {
         //https://localhost:7162/api/sessions/total/www.s_7.com
         var file = FileReader.ConvertCsvToTableRecord("Data/example.csv");
-        var proceccing = new SessionsLoadData();
+        var proceccing = new LoadSessionsData();
         var res = proceccing.LoadToDataStructure(file);
         return res.GetNumberOfSessions(siteUrl); 
     }
@@ -24,6 +24,6 @@ public class SessionsController : ControllerBase
     public void GetSessionMedianLength([FromRoute] string siteUrl)
     {
         var file = FileReader.ConvertCsvToTableRecord("Data/example.csv");
-        var sessionLoader = new SessionsLoadData();
+        var sessionLoader = new LoadSessionsData();
     }
 }
