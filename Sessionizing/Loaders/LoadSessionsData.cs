@@ -7,6 +7,7 @@ namespace sessionizer.Loaders;
 public class SessionsLoadData : ILoadData<SessionsAnalyzer>
 {
     private SessionsAnalyzer? _loadedData;
+    
 
     public SessionsAnalyzer LoadToDataStructure(List<TableRecord> records)
     {
@@ -15,13 +16,14 @@ public class SessionsLoadData : ILoadData<SessionsAnalyzer>
             return _loadedData;
         }
 
-        var lastTimeStampByUserAndSite = new Dictionary<(string, string), SessionTwo>();
+        var lastTimeStampByUserAndSite = new Dictionary<SessionKey, SessionTwo>();
         var urlsSessions = new Dictionary<string, List<long>>();
         foreach (var tableRecord in records)
         {
-            if (lastTimeStampByUserAndSite.ContainsKey((tableRecord.UserId, tableRecord.SiteUrl)))
+            var sessionKey = new SessionKey(tableRecord.SiteUrl, tableRecord.UserId);
+            if (lastTimeStampByUserAndSite.ContainsKey(sessionKey))
             {
-                var currentSession = lastTimeStampByUserAndSite[(tableRecord.UserId, tableRecord.SiteUrl)];
+                var currentSession = lastTimeStampByUserAndSite[sessionKey];
                 if (currentSession.endtime + 60000*30 < tableRecord.Timestamp)
                 {
                     if (!urlsSessions.ContainsKey(tableRecord.SiteUrl))
@@ -30,26 +32,25 @@ public class SessionsLoadData : ILoadData<SessionsAnalyzer>
                     currentSession.startTime = tableRecord.Timestamp;
                 }
                 currentSession.endtime = tableRecord.Timestamp;
-                
             }
             else
             {
-                lastTimeStampByUserAndSite.Add((tableRecord.UserId, tableRecord.SiteUrl),
+                lastTimeStampByUserAndSite.Add((sessionKey),
                     new SessionTwo(tableRecord.Timestamp));
             }
         }
 
-        foreach (var keyValuePair in lastTimeStampByUserAndSite)
+        foreach (var (key, value) in lastTimeStampByUserAndSite)
         {
-            if (!urlsSessions.ContainsKey(keyValuePair.Key.Item2))
-                urlsSessions[keyValuePair.Key.Item2] = new List<long>();
-            var sessionDuration = keyValuePair.Value.endtime - keyValuePair.Value.startTime;
-            if (keyValuePair.Value.endtime == -1)
+            if (!urlsSessions.ContainsKey(key.SiteUrl))
+                urlsSessions[key.SiteUrl] = new List<long>();
+            var sessionDuration = value.endtime - value.startTime;
+            if (value.endtime == -1)
             {
                 sessionDuration = 0;
             }
 
-            urlsSessions[keyValuePair.Key.Item2].Add(sessionDuration);
+            urlsSessions[key.SiteUrl].Add(sessionDuration);
         }
 
         _loadedData = new SessionsAnalyzer(urlsSessions);

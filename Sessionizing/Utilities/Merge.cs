@@ -19,7 +19,7 @@ public class Merge
         var secondListIndex = 0;
         while (firstListIndex < firstListCount && secondListIndex < secondListCount)
         {
-            mergedList.Add(firstList[firstListIndex].CompareTo(secondList[secondListIndex]) < 1 ? firstList[firstListIndex++] : secondList[secondListIndex++]);
+            // mergedList.Add(firstList[firstListIndex].CompareTo(secondList[secondListIndex]) < 1 ? firstList[firstListIndex++] : secondList[secondListIndex++]);
         }
 
         // secondList has exhausted

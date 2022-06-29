@@ -1,6 +1,6 @@
 namespace sessionizer.Models;
 
-public class TableRecord : IComparable<TableRecord>
+public class TableRecord 
 {
     private TableRecord(string userId, string siteUrl, string pageViewUrl, long timestamp)
     {
@@ -27,10 +27,4 @@ public class TableRecord : IComparable<TableRecord>
         return new TableRecord(split[0],split[1],split[2],Convert.ToInt64(split[3]));
     }
 
-    
-    public int CompareTo(TableRecord? other)
-    {
-        if (other != null) return this.Timestamp.CompareTo(other.Timestamp);
-        return 1;
-    }
 }
