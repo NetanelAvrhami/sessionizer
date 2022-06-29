@@ -17,6 +17,7 @@ public class LoadUsersData : ILoadUserData
 
             usersUniqueSitesMap[tableRecord.UserId].Add(tableRecord.SiteUrl);
         }
+
         return new UsersAnalyzer(usersUniqueSitesMap);
     }
 }

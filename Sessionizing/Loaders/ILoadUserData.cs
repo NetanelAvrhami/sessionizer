@@ -5,6 +5,5 @@ namespace sessionizer.Loaders;
 
 public interface ILoadUserData
 {
-    public UsersAnalyzer? LoadUsersSites(List<TableRecord> records);
-
+    public UsersAnalyzer LoadUsersSites(List<TableRecord> records);
 }

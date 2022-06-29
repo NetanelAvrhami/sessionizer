@@ -22,15 +22,17 @@ public class Merge
         }
 
         // secondList has exhausted
-        while (firstListIndex < firstListCount) {
+        while (firstListIndex < firstListCount)
+        {
             mergedList.Add(firstList[firstListIndex++]);
         }
 
         // firstList has exhausted
-        while (secondListIndex < secondListCount) {
+        while (secondListIndex < secondListCount)
+        {
             mergedList.Add(secondList[secondListIndex++]);
         }
+
         return mergedList;
     }
 }
-

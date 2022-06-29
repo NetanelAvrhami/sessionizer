@@ -13,5 +13,4 @@ public class UsersAnalyzer
     {
         return _usersUniqueSitesMap[userId].Count;
     }
-
 }

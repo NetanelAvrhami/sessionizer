@@ -5,10 +5,9 @@ namespace sessionizer.Loaders;
 
 public class LoadSessionsData : ILoadSessionsData
 {
-    
     public SessionsAnalyzer LoadSessions(List<TableRecord> records)
     {
-        var lastTimeStampByUserAndSite = new  Dictionary<SessionKey, Session>();
+        var lastTimeStampByUserAndSite = new Dictionary<SessionKey, Session>();
         var urlsSessionsMap = new Dictionary<string, List<double>>();
 
         foreach (var tableRecord in records)
@@ -25,6 +24,7 @@ public class LoadSessionsData : ILoadSessionsData
                     urlsSessionsMap[tableRecord.SiteUrl].Add(sessionDuration);
                     currentSession.StartTime = tableRecord.VisitDateTime;
                 }
+
                 currentSession.EndTime = tableRecord.VisitDateTime;
             }
             else
@@ -39,8 +39,9 @@ public class LoadSessionsData : ILoadSessionsData
             var sessionDuration = session.EndTime.Subtract(session.StartTime).TotalSeconds;
             if (!urlsSessionsMap.ContainsKey(siteAndUrl.SiteUrl))
                 urlsSessionsMap[siteAndUrl.SiteUrl] = new List<double>();
-            urlsSessionsMap[siteAndUrl.SiteUrl].Add(sessionDuration);        
+            urlsSessionsMap[siteAndUrl.SiteUrl].Add(sessionDuration);
         }
+
         return new SessionsAnalyzer(urlsSessionsMap);
     }
 }

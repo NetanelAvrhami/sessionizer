@@ -4,15 +4,18 @@ public class SessionKey
 {
     public string SiteUrl { get; }
     private string UserId { get; }
+
     public SessionKey(string siteUrl, string userId)
     {
         SiteUrl = siteUrl;
         UserId = userId;
     }
+
     public override int GetHashCode()
     {
         return HashCode.Combine(SiteUrl, UserId);
     }
+
     public override bool Equals(object? obj)
     {
         // If parameter is null return false.
@@ -29,5 +32,4 @@ public class SessionKey
 
         return (SiteUrl == p.SiteUrl) && (UserId == p.UserId);
     }
-
 }

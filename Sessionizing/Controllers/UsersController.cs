@@ -6,16 +6,17 @@ namespace sessionizer.Controllers;
 public class UsersController : ControllerBase
 {
     private readonly Bootstrap _bootstrap;
+
     public UsersController(Bootstrap bootstrap)
     {
         _bootstrap = bootstrap;
     }
+
     [HttpGet("numOfSites/{userId}")]
     public ActionResult<string> GetUserUniqueSites([FromRoute] string userId)
     {
         //https://localhost:7162/api/users/numOfSites/visitor_6267
         var res = _bootstrap.GetUserAnalyzer()?.GetVisitorUniqueSites(userId);
         return Ok(res);
-
     }
 }
