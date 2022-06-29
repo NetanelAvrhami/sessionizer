@@ -10,15 +10,15 @@ public class RecordsReader : IFileReader
 
     public List<VisitRecord> ReadFile(string csvFilePath)
     {
-        var tableRecords = new List<VisitRecord>();
+        var visits = new List<VisitRecord>();
         using var streamReader = new StreamReader(csvFilePath);
         string? currentLine;
         while ((currentLine = streamReader.ReadLine()) != null)
         {
-            var record = VisitRecord.ConvertToVisitRecord(currentLine);
-            tableRecords.Add(record);
+            var visit = VisitRecord.ConvertToVisitRecord(currentLine);
+            visits.Add(visit);
         }
 
-        return tableRecords;
+        return visits;
     }
 }
