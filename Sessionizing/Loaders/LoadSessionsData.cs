@@ -3,17 +3,17 @@ using sessionizer.Responses;
 
 namespace sessionizer.Loaders;
 
-public class LoadSessionsData : ILoadData<SessionsAnalyzer>
+public class LoadSessionsData : ILoadSessionsData
 {
     private SessionsAnalyzer? _loadedData;
-    private readonly Dictionary<SessionKey, SessionTwo> _lastTimeStampByUserAndSite;
+    private readonly Dictionary<SessionKey, Session> _lastTimeStampByUserAndSite;
     
     public LoadSessionsData()
     {
-        _lastTimeStampByUserAndSite = new Dictionary<SessionKey, SessionTwo>();
+        _lastTimeStampByUserAndSite = new Dictionary<SessionKey, Session>();
     }
 
-    public SessionsAnalyzer LoadToDataStructure(List<TableRecord> records)
+    public SessionsAnalyzer? LoadUsersSites(List<TableRecord> records)
     {
         if (_loadedData != null)
         {
@@ -37,7 +37,7 @@ public class LoadSessionsData : ILoadData<SessionsAnalyzer>
             else
             {
                 _lastTimeStampByUserAndSite.Add((sessionKey),
-                    new SessionTwo(tableRecord.Timestamp));
+                    new Session(tableRecord.Timestamp));
             }
         }
 

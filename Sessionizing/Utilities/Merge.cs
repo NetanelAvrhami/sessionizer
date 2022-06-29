@@ -4,7 +4,6 @@ namespace sessionizer.Utilities;
 
 public class Merge
 {
-    //check how to do it generic
     public static List<TableRecord> MergeTwo(List<TableRecord> firstList, List<TableRecord> secondList)
     {
         // Get sizes of vectors

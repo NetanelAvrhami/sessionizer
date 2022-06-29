@@ -1,4 +1,6 @@
-using sessionizer.Models;
+using sessionizer;
+using sessionizer.Loaders;
+using sessionizer.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,14 +11,25 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddTransient<ILoadUserData, LoadUsersData>();
+builder.Services.AddTransient<ILoadSessionsData, LoadSessionsData>();
+builder.Services.AddTransient<IFileReader, RecordsReader>();
+builder.Services.AddSingleton<Bootstrap>();
+
+
 var app = builder.Build();
 
+var res = app.Services.GetService<Bootstrap>();
+res?.Init();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+
+
 
 app.UseHttpsRedirection();
 

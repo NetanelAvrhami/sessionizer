@@ -3,11 +3,11 @@ using sessionizer.Responses;
 
 namespace sessionizer.Loaders;
 
-public class UsersLoadData : ILoadData<UsersAnalyzer>
+public class LoadUsersData : ILoadUserData
 {
     private UsersAnalyzer? _loadedData;
 
-    public UsersAnalyzer LoadToDataStructure(List<TableRecord> records)
+    public UsersAnalyzer? LoadSessions(List<TableRecord> records)
     {
         if (_loadedData != null)
         {
