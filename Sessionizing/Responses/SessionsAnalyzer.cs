@@ -2,12 +2,13 @@ namespace sessionizer.Responses;
 
 public class SessionsAnalyzer 
 {
+    private Dictionary<string, List<double>> UrlsSessionsMap { get; set; }
+
     public SessionsAnalyzer(Dictionary<string, List<double>> urlsSessionsMap)
     {
         UrlsSessionsMap = urlsSessionsMap!;
     }
 
-    public Dictionary<string, List<double>> UrlsSessionsMap { get; set; }
     public int GetNumberOfSessions(string siteUrl)
     {
          return UrlsSessionsMap[siteUrl].Count;

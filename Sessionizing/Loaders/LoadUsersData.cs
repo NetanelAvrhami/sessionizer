@@ -10,12 +10,12 @@ public class UsersLoadData : ILoadData<UsersAnalyzer>
         var uniqueSitesPerUser = new Dictionary<string, HashSet<string?>>();
         foreach (var tableRecord in records)
         {
-            if (tableRecord.UserId != null && !uniqueSitesPerUser.ContainsKey(tableRecord.UserId))
+            if (!uniqueSitesPerUser.ContainsKey(tableRecord.UserId))
             {
                 uniqueSitesPerUser.Add(tableRecord.UserId, new HashSet<string?>());
             }
 
-            if (tableRecord.UserId != null) uniqueSitesPerUser[tableRecord.UserId].Add(tableRecord.SiteUrl);
+            uniqueSitesPerUser[tableRecord.UserId].Add(tableRecord.SiteUrl);
         }
 
         return new UsersAnalyzer(uniqueSitesPerUser!);
