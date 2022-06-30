@@ -22,8 +22,6 @@ supporrted Apis :
 
 Scaling: 
 
-*Caching and Preprocessing for commonly used results. 
-
 *Instead of 4 separate iterations - convert the csv,  merge the csvs, calcute sessions, calculate users site,
 it can be rewriten to compute the sessions and users visited site in a one single pass.
 
@@ -34,8 +32,7 @@ we also wont need to compute per each server all this information - we will have
 
 Testing:
 
-My main goal was to write unit tests but I did not have time for it,
-so I created 3 CSV files with small information and on them and I checked on them with debug mode.
+I created 3 CSV files with small information and on them and I checked on them with debug mode.
 
 
 To run this code please clone the project and run in on the localhost.
