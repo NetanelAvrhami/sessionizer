@@ -10,9 +10,9 @@ with "userId" key and Set of site urls")
 3.build sessions data structure - O(n) time - running over the merged csv's list and map for each site list of sessions length which calculated
 with dictionary that save the last session according to userId and siteUrl key. 
 
-***All of the above operations are performed only once the server is up***
+***All the above operations are preformed statically once the server is up***
 
-incoming request : 
+supporrted Apis : 
 
 - "api/sessions/total/${siteUrl}" - get number of sessions - O(1) time - get from sessions dictionary the size of the sessions list according to "site url" key.
 
@@ -23,6 +23,8 @@ incoming request :
 scaling : 
 
 *Caching and Preprocessing for commonly used results. 
+
 *Instead of 4 separate iterations(one to conver the csv, when to merge the csv, one to calcute sessions, one to calculate users site),
 it can be rewriten to compute the sessions and users visited site in a one single pass.
+
 *Save the sessions and users data on cloud db.
