@@ -24,7 +24,7 @@ scaling :
 
 *Caching and Preprocessing for commonly used results. 
 
-*Instead of 4 separate iterations(one to conver the csv, when to merge the csv, one to calcute sessions, one to calculate users site),
+*Instead of 4 separate iterations - convert the csv,  merge the csvs, calcute sessions, calculate users site,
 it can be rewriten to compute the sessions and users visited site in a one single pass.
 
 *Save the sessions and users data on cloud db.
