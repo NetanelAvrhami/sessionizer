@@ -22,8 +22,6 @@ supporrted Apis :
 
 Scaling: 
 
-*Caching and Preprocessing for commonly used results. 
-
 *Instead of 4 separate iterations - convert the csv,  merge the csvs, calcute sessions, calculate users site,
 it can be rewriten to compute the sessions and users visited site in a one single pass.
 
