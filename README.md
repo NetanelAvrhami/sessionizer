@@ -36,3 +36,6 @@ Testing:
 
 My main goal was to write unit tests but I did not have time for it,
 so I created 3 CSV files with small information and on them and I checked on them with debug mode.
+
+
+To run this code please clone the project and run in on the localhost.
