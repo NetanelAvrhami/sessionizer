@@ -4,8 +4,8 @@ Space and time complexity
 
 1.merge csv files - O(n+m+k) time and O(n+m+k) space, where m, n, o are the lengths of the firstCsv, secondCsv, and thirdCsv. (merge 3 sorted listed)
 
-2.build users unique sites data stracture - O(n) time - running over the merged csv's list and map for each user his visited sites ( dictionary 
-with "userId" key and Set of site urls"
+2.build users unique sites data stracture - O(n) time - running over the merged csv's list and map for each user his visited sites (dictionary 
+with "userId" key and Set of site urls")
 
 3.build sessions data stracture - O(n) time - running over the merged csv's list and mapp for each site list of sessions length which calculated
 with dictionary that save the last session according to userId and siteUrl key. 
