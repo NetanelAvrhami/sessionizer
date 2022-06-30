@@ -16,7 +16,7 @@ incoming request :
 
 - "api/sessions/total/${siteUrl}" - get number of sessions - O(1) time - get from sessions dictionary the size of the sessions list according to "site url" key.
 
-- "api/sessiongs/median/${siteUrl}" - get median session length - O(nlogn) time - sorting the sessions durations lists and returning the median.
+- "api/sessiongs/median/${siteUrl}" - get median session length - O(nlogn) time - sorting the sessions durations list and returning the median.
 
 - "api/users/numOfSites/${userId}" - get user unique sites - O(1) time - get from the users dictionary the size of the urls set according to "userId" key.
 
