@@ -8,17 +8,16 @@ public class RecordsReader : IFileReader
     private const string Input2 = "Data/input_2.csv";
     private const string Input3 = "Data/input_3.csv";
 
-    public List<VisitRecord> ReadFile(string csvFilePath)
+    public List<VisitRecord> ReadFile()
     {
         var visits = new List<VisitRecord>();
-        using var streamReader = new StreamReader(csvFilePath);
+        using var streamReader = new StreamReader(Input1);
         string? currentLine;
         while ((currentLine = streamReader.ReadLine()) != null)
         {
             var visit = VisitRecord.ConvertToVisitRecord(currentLine);
             visits.Add(visit);
         }
-
         return visits;
     }
 }

@@ -2,18 +2,18 @@ namespace sessionizer.Models;
 
 public class VisitRecord
 {
-    private VisitRecord(string userId, string siteUrl, string pageViewUrl, DateTime dateTime)
+    private VisitRecord(string userId, string siteUrl, string pageViewUrl, DateTime visitTime)
     {
         UserId = userId;
         SiteUrl = siteUrl;
         PageViewUrl = pageViewUrl;
-        DateTime = dateTime;
+        VisitTime = visitTime;
     }
 
     public string UserId { get; }
     public string SiteUrl { get; }
     public string PageViewUrl { get; }
-    public DateTime DateTime { get; }
+    public DateTime VisitTime { get; }
 
     public static VisitRecord ConvertToVisitRecord(string record)
     {

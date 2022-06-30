@@ -7,34 +7,34 @@ public class LoadSessionsData : ILoadSessionsData
 {
     public SessionsAnalyzer LoadSessions(List<VisitRecord> visits)
     {
-        var lastTimeStampByUserAndSite = new Dictionary<SessionKey, Session>();
+        var lastSessionByUserAndSite = new Dictionary<SessionKey, Session>();
         var urlsSessionsMap = new Dictionary<string, List<double>>();
 
         foreach (var visit in visits)
         {
             var sessionKey = new SessionKey(visit.SiteUrl, visit.UserId);
-            if (lastTimeStampByUserAndSite.ContainsKey(sessionKey))
+            if (lastSessionByUserAndSite.ContainsKey(sessionKey))
             {
-                var currentSession = lastTimeStampByUserAndSite[sessionKey];
-                if (currentSession.EndTime.AddMinutes(30) < visit.DateTime)
+                var openedSession = lastSessionByUserAndSite[sessionKey];
+                if (openedSession.EndTime.AddMinutes(30) < visit.VisitTime)
                 {
-                    var sessionDuration = currentSession.EndTime.Subtract(currentSession.StartTime).TotalSeconds;
+                    var sessionDuration = openedSession.EndTime.Subtract(openedSession.StartTime).TotalSeconds;
                     if (!urlsSessionsMap.ContainsKey(visit.SiteUrl))
                         urlsSessionsMap[visit.SiteUrl] = new List<double>();
                     urlsSessionsMap[visit.SiteUrl].Add(sessionDuration);
-                    currentSession.StartTime = visit.DateTime;
+                    openedSession.StartTime = visit.VisitTime;
                 }
 
-                currentSession.EndTime = visit.DateTime;
+                openedSession.EndTime = visit.VisitTime;
             }
             else
             {
-                lastTimeStampByUserAndSite.Add((sessionKey),
-                    new Session(visit.DateTime));
+                lastSessionByUserAndSite.Add((sessionKey),
+                    new Session(visit.VisitTime));
             }
         }
 
-        foreach (var (siteAndUrl, session) in lastTimeStampByUserAndSite)
+        foreach (var (siteAndUrl, session) in lastSessionByUserAndSite)
         {
             var sessionDuration = session.EndTime.Subtract(session.StartTime).TotalSeconds;
             if (!urlsSessionsMap.ContainsKey(siteAndUrl.SiteUrl))

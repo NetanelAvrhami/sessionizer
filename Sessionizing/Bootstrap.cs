@@ -42,7 +42,7 @@ public class Bootstrap
             if(_initialized){
                 return;
             }
-            var allRecords = _fileReader.ReadFile("Data/example.csv");
+            var allRecords = _fileReader.ReadFile();
             _sessionsAnalyzer = _sessionsLoader.LoadSessions(allRecords);
             _usersAnalyzer = _usersLoader.LoadUsersSites(allRecords);
             _initialized = true;
