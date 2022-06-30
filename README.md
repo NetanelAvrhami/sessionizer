@@ -2,12 +2,12 @@
 
 Space and time complexity
 
-1.merge csv files - O(n+m+k) time and O(n+m+k) space, where m, n, o are the lengths of the firstCsv, secondCsv, and thirdCsv. (merge 3 sorted listed)
+1.merge csv files - O(n+m+k) time and O(n+m+k) space, where m, n, k are the lengths of the firstCsv, secondCsv, and thirdCsv. (merge 3 sorted listed)
 
-2.build users unique sites data stracture - O(n) time - running over the merged csv's list and map for each user his visited sites (dictionary 
+2.build users unique sites data structure - O(n) time - running over the merged csv's list and map for each user his visited sites (dictionary 
 with "userId" key and Set of site urls")
 
-3.build sessions data stracture - O(n) time - running over the merged csv's list and mapp for each site list of sessions length which calculated
+3.build sessions data structure - O(n) time - running over the merged csv's list and map for each site list of sessions length which calculated
 with dictionary that save the last session according to userId and siteUrl key. 
 
 ***All of the above operations are performed only once the server is up***
@@ -20,3 +20,9 @@ incoming request :
 
 - "api/users/numOfSites/${userId}" - get user unique sites - O(1) time - get from the users dictionary the size of the urls set according to "userId" key.
 
+scaling : 
+
+*Caching and Preprocessing for commonly used results. 
+*Instead of 4 separate iterations(one to conver the csv, when to merge the csv, one to calcute sessions, one to calculate users site),
+it can be rewriten to compute the sessions and users visited site in a one single pass.
+*Save the sessions and users data on cloud db.
