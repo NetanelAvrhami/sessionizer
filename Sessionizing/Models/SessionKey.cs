@@ -25,11 +25,11 @@ public class SessionKey
         }
 
         // If parameter cannot be cast to SessionKey return false.
-        if (obj is not SessionKey p)
+        if (obj is not SessionKey s)
         {
             return false;
         }
 
-        return (SiteUrl == p.SiteUrl) && (UserId == p.UserId);
+        return (SiteUrl == s.SiteUrl) && (UserId == s.UserId);
     }
 }
