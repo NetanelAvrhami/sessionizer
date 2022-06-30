@@ -20,7 +20,7 @@ supporrted Apis :
 
 - "api/users/numOfSites/${userId}" - get user unique sites - O(1) time - get from the users dictionary the size of the urls set according to "userId" key.
 
-scaling : 
+Scaling: 
 
 *Caching and Preprocessing for commonly used results. 
 
@@ -28,3 +28,8 @@ scaling :
 it can be rewriten to compute the sessions and users visited site in a one single pass.
 
 *Save the sessions and users data on cloud db.
+
+Testing:
+
+My main goal was to write unit tests but I did not have time for it,
+so I created 3 CSV files with small information and on them and I checked on them with debug mode.
