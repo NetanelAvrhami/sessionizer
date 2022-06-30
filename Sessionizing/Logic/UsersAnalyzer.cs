@@ -9,8 +9,10 @@ public class UsersAnalyzer
         _usersUniqueSitesMap = usersUniqueSitesMap;
     }
 
-    public int GetVisitorUniqueSites(string userId)
+    public int? GetVisitorUniqueSites(string userId)
     {
-        return _usersUniqueSitesMap[userId].Count;
+        if (_usersUniqueSitesMap.ContainsKey(userId))
+            return _usersUniqueSitesMap[userId].Count;
+        return null;
     }
 }

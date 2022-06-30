@@ -16,7 +16,9 @@ public class UsersController : ControllerBase
     public ActionResult<string> GetUserUniqueSites([FromRoute] string userId)
     {
         //https://localhost:7162/api/users/numOfSites/visitor_6267
-        var res = _bootstrap.GetUserAnalyzer()?.GetVisitorUniqueSites(userId);
-        return Ok(res);
+        var numOfSites = _bootstrap.GetUserAnalyzer()?.GetVisitorUniqueSites(userId);
+        if (numOfSites != null)
+            return Ok($"User ${userId} has visited ${numOfSites} unique sites");
+        return NotFound($"User ${userId} is not listed in the db");
     }
 }

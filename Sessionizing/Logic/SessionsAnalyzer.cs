@@ -9,9 +9,11 @@ public class SessionsAnalyzer
         UrlsSessionsMap = urlsSessionsMap;
     }
 
-    public int GetNumberOfSessions(string siteUrl)
+    public int? GetNumberOfSessions(string siteUrl)
     {
-        return UrlsSessionsMap[siteUrl].Count;
+        if (UrlsSessionsMap.ContainsKey(siteUrl))
+            return UrlsSessionsMap[siteUrl].Count;
+        return null;
     }
 
     public List<double> GetSessionsMedianLength(string siteUrl)
