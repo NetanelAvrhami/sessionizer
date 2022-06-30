@@ -16,13 +16,20 @@ public class SessionsAnalyzer
         return null;
     }
 
-    public List<double> GetSessionsMedianLength(string siteUrl)
+    public double? GetSessionsMedianLength(string siteUrl)
     {
+        if (!UrlsSessionsMap.ContainsKey(siteUrl))
+            return null;
+
         var sessionsSize = UrlsSessionsMap[siteUrl].Count;
         UrlsSessionsMap[siteUrl].Sort();
-        return UrlsSessionsMap[siteUrl];
-        // return (sessionsSize % 2 == 0) ? ((UrlsSessionsMap[siteUrl][sessionsSize / 2] + 
-        //                                    (UrlsSessionsMap[siteUrl][(sessionsSize / 2) - 1]))) 
-        //     : (UrlsSessionsMap[siteUrl][(sessionsSize - 1) / 2]);
+        var sessionList = UrlsSessionsMap[siteUrl];
+        var midIndex = sessionsSize / 2;
+        if (sessionsSize % 2 != 0)
+            return sessionList[midIndex];
+
+        var value1 = sessionList[midIndex];
+        var value2 = sessionList[midIndex - 1];
+        return (value1 + value2) / 2;
     }
 }

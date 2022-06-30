@@ -9,21 +9,18 @@ public class RecordsReader : IFileReader
     private const string Input3 = "Data/input_3.csv";
 
 
-
     public List<VisitRecord> ReadFile(string csvFilePath)
     {
-        var visitRecords = File.ReadAllLines("Data/input_1.csv")
+        
+        var visitRecords = File.ReadAllLines(Consts.Input1)
             .Select(x => x.Split(','))
-            .Select(cell => new VisitRecord()
-                {
-                    UserId = cell[0].Contains('_') ? cell[0].Split('_')[1] : cell[0],
-                    SiteUrl = cell[1],
-                    PageViewUrl = cell[2],
-                    VisitTime = new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(Convert.ToDouble(cell[3]))
-                }
-            ).ToList();
+            .Select(cell => new VisitRecord(
+                cell[0].Split('_')[1],
+                cell[1],
+                cell[2],
+                new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(Convert.ToDouble(cell[3]))
+            )).ToList();
 
         return visitRecords;
-
     }
 }

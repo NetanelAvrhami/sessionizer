@@ -2,7 +2,7 @@ using sessionizer.Resources;
 
 namespace sessionizer.Utilities;
 
-public class Merge
+public static class Merge
 {
     public static List<VisitRecord> MergeTwo(List<VisitRecord> firstList, List<VisitRecord> secondList)
     {
@@ -18,7 +18,9 @@ public class Merge
         var secondListIndex = 0;
         while (firstListIndex < firstListCount && secondListIndex < secondListCount)
         {
-            mergedList.Add(firstList[firstListIndex].VisitTime.CompareTo(secondList[secondListIndex].VisitTime) < 1 ? firstList[firstListIndex++] : secondList[secondListIndex++]);
+            mergedList.Add(firstList[firstListIndex].VisitTime.CompareTo(secondList[secondListIndex].VisitTime) < 1
+                ? firstList[firstListIndex++]
+                : secondList[secondListIndex++]);
         }
 
         // secondList has exhausted

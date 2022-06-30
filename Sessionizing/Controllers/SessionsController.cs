@@ -28,6 +28,8 @@ public class SessionsController : ControllerBase
     public ActionResult<string> GetSessionMedianLength([FromRoute] string siteUrl)
     {
         var medianLength = _bootstrap.GetSessionAnalyzer()?.GetSessionsMedianLength(siteUrl);
-        return Ok(medianLength);
+        if (medianLength != null)
+            return Ok($"Median Sessions length for site ${siteUrl} is ${medianLength}");
+        return NotFound($"Site #{siteUrl} is not listed in the db");
     }
 }
