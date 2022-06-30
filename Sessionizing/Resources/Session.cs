@@ -1,4 +1,4 @@
-namespace sessionizer.Models;
+namespace sessionizer.Resources;
 
 public class Session
 {

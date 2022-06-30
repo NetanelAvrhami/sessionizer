@@ -1,8 +1,8 @@
-using sessionizer.Models;
+using sessionizer.Resources;
 
 namespace sessionizer.Utilities;
 
 public interface IFileReader
 {
-    public List<VisitRecord> ReadFile();
+    public List<VisitRecord> ReadFile(string csvFilePath);
 }

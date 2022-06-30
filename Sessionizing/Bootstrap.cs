@@ -42,9 +42,13 @@ public class Bootstrap
             if(_initialized){
                 return;
             }
-            var allRecords = _fileReader.ReadFile();
-            _sessionsAnalyzer = _sessionsLoader.LoadSessions(allRecords);
-            _usersAnalyzer = _usersLoader.LoadUsersSites(allRecords);
+            var allRecords = _fileReader.ReadFile("Data/input_1.csv");
+            var allRecords2 = _fileReader.ReadFile("Data/input_2.csv");
+            var allRecords3 = _fileReader.ReadFile("Data/input_3.csv");
+            var merged = Merge.MergeTwo(allRecords, allRecords2);
+            merged = Merge.MergeTwo(merged, allRecords3);
+            _sessionsAnalyzer = _sessionsLoader.LoadSessions(merged);
+            _usersAnalyzer = _usersLoader.LoadUsersSites(merged);
             _initialized = true;
         }
 

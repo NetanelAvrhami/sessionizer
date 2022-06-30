@@ -18,7 +18,6 @@ public class SessionsController : ControllerBase
     [HttpGet("total/{siteUrl}")]
     public ActionResult<string> GetNumberOfSessions([FromRoute] string siteUrl)
     {
-        //https://localhost:7162/api/sessions/total/www.s_7.com
         var sessionsNum = _bootstrap.GetSessionAnalyzer()?.GetNumberOfSessions(siteUrl);
         if (sessionsNum != null)
             return Ok($"Site ${siteUrl} have ${sessionsNum} sessions");
