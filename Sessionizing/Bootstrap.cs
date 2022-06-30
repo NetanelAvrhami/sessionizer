@@ -45,8 +45,8 @@ public class Bootstrap
             var firstFileRecord = _fileReader.ReadFile(Consts.FirstFile);
             var secondFileRecord = _fileReader.ReadFile(Consts.SecondFile);
             var thirdFileRecord = _fileReader.ReadFile(Consts.ThirdFile);
-            var mergedRecords = Merge.MergeTwo(firstFileRecord, secondFileRecord);
-            mergedRecords = Merge.MergeTwo(mergedRecords, thirdFileRecord);
+            var mergedRecords = ListUtils.MergeTwo(firstFileRecord, secondFileRecord);
+            mergedRecords = ListUtils.MergeTwo(mergedRecords, thirdFileRecord);
             _sessionsAnalyzer = _sessionsLoader.LoadSessions(mergedRecords);
             _usersAnalyzer = _usersLoader.LoadUsersSites(mergedRecords);
             _initialized = true;

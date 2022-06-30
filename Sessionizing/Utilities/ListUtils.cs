@@ -2,7 +2,7 @@ using sessionizer.Resources;
 
 namespace sessionizer.Utilities;
 
-public static class Merge
+public static class ListUtils
 {
     public static List<VisitRecord> MergeTwo(List<VisitRecord> firstList, List<VisitRecord> secondList)
     {

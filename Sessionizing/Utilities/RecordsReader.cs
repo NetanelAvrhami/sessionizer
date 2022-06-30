@@ -4,11 +4,7 @@ namespace sessionizer.Utilities;
 
 public class RecordsReader : IFileReader
 {
-    private const string Input1 = "Data/input_1.csv";
-    private const string Input2 = "Data/input_2.csv";
-    private const string Input3 = "Data/input_3.csv";
-
-
+    
     public List<VisitRecord> ReadFile(string csvFilePath)
     {
         var visitRecords = File.ReadAllLines(csvFilePath)
