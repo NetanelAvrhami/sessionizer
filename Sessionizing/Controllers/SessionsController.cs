@@ -20,8 +20,8 @@ public class SessionsController : ControllerBase
     {
         var sessionsNum = _bootstrap.GetSessionAnalyzer()?.GetNumberOfSessions(siteUrl);
         if (sessionsNum != null)
-            return Ok($"Site ${siteUrl} have ${sessionsNum} sessions");
-        return NotFound($"Site #{siteUrl} is not listed in the db");
+            return Ok($"Site {siteUrl} have {sessionsNum} sessions");
+        return NotFound($"Site {siteUrl} is not listed in the db");
     }
 
     [HttpGet("median/{siteUrl}")]
@@ -29,7 +29,7 @@ public class SessionsController : ControllerBase
     {
         var medianLength = _bootstrap.GetSessionAnalyzer()?.GetSessionsMedianLength(siteUrl);
         if (medianLength != null)
-            return Ok($"Median Sessions length for site ${siteUrl} is ${medianLength}");
-        return NotFound($"Site #{siteUrl} is not listed in the db");
+            return Ok($"Median Sessions length for site {siteUrl} is {medianLength}");
+        return NotFound($"Site {siteUrl} is not listed in the db");
     }
 }

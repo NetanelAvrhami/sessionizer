@@ -11,8 +11,7 @@ public class RecordsReader : IFileReader
 
     public List<VisitRecord> ReadFile(string csvFilePath)
     {
-        
-        var visitRecords = File.ReadAllLines(Consts.Input1)
+        var visitRecords = File.ReadAllLines(csvFilePath)
             .Select(x => x.Split(','))
             .Select(cell => new VisitRecord(
                 cell[0].Split('_')[1],
