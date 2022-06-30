@@ -27,7 +27,10 @@ Scaling:
 *Instead of 4 separate iterations - convert the csv,  merge the csvs, calcute sessions, calculate users site,
 it can be rewriten to compute the sessions and users visited site in a one single pass.
 
-*Save the sessions and users data on cloud db.
+*Assuming the data wont change, I can store all the records to the DB and create a job that will iterate over records, and will do some preprocessing to have easier solution. 
+
+Iterating over the DB is easier,also storing the needed results will utilize DB indexes. 
+we also wont need to compute per each server all this information - we will have a persistent data that shared across all servers
 
 Testing:
 
